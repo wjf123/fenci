@@ -28,6 +28,7 @@ public class readTerm {
 						t.setTermId(temp[0]);
 						t.setCourseId(temp[3]);
 						t.setStartTime(temp[4]);
+						t.setDuration(temp[5]);
 						t.setEndTime(temp[6]);
 						termList.add(t);
 					}
@@ -63,7 +64,7 @@ public class readTerm {
 	
 	public static void main(String args[]) throws FileNotFoundException, IOException{
 		readTerm rt=new readTerm();
-		String str=rt.getTerm("46016", "46002").getEndTime();
+		String str=rt.getTerm("46016", "46002").getDuration();
 		System.out.println(str);
 	}
 

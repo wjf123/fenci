@@ -22,24 +22,28 @@ public class CosSimMain {
 		List<postDetail> postsDetail=new ArrayList<>();
 		List<lessonUnit> lessonUnits=new ArrayList<>();
 		//初始化
-		posts=readpost.getPostWeek("46016","46002",2);
-		postsDetail=readpost.getPostDetail("46016","46002");
-		lessonUnits=readLessonU.readLessonUnit("46016","46002");
-		//分词
-		getPostContent getContent=new getPostContent();
-		posts=getContent.getPost(posts, postsDetail);
-		lessonUnits=getContent.getPoint(lessonUnits);
-		//计算CosSim
-		computeCS computer=new computeCS();
-		computer.compute(posts,lessonUnits);
-		computer.gethotLesUnitMap();
-		computer.writeSimToFile();
-		computer.writeHotPointToFile();
-		List<Map.Entry<String, Integer>> result=computer.getFreqList();
-		for(int i=0;i<result.size();i++){
-			System.out.println(result.get(i).getKey()+":"+result.get(i).getValue());
+		for(int k=1;k<13;k++){
+			posts=readpost.getPostWeek("46016","46002",k);
+			postsDetail=readpost.getPostDetail("46016","46002");
+			lessonUnits=readLessonU.readLessonUnit("46016","46002");
+			//分词
+			getPostContent getContent=new getPostContent();
+			posts=getContent.getPost(posts, postsDetail);
+			lessonUnits=getContent.getPoint(lessonUnits);
+			//计算CosSim
+			computeCS computer=new computeCS();
+			computer.setN(k);
+			computer.compute(posts,lessonUnits);
+			computer.gethotLesUnitMap();
+			computer.writeSimToFile();
+			computer.writeHotPointToFile();
+			List<Map.Entry<String, Integer>> result=computer.getFreqList();
+			for(int i=0;i<result.size();i++){
+				System.out.println(result.get(i).getKey()+":"+result.get(i).getValue());
+			}
+			computer.getHotPointContent();
 		}
-		computer.getHotPointContent();
+		
 		
 	}
 }

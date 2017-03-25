@@ -20,11 +20,19 @@ import simCompute.cosSim;
 public class computeCS {
 	private Map<String,Map<String,Double>> simMap=new HashMap();
 	private List<Map.Entry<String, Integer>> freqList;
+	private int N;//为了输出带N周的标签
+	
 	
 	
 	//List<post> postList=new ArrayList<>();
 	//List<lessonUnit> lesList=new ArrayList<>();
 	
+	public int getN() {
+		return N;
+	}
+	public void setN(int n) {
+		N = n;
+	}
 	public Map<String, Map<String, Double>> getSimMap() {
 		return simMap;
 	}
@@ -127,7 +135,7 @@ public class computeCS {
 		}
 		
 		FileOP fop=new FileOP();
-		fop.writeFile(str, "0", "F:\\opr\\");
+		//fop.writeFile(str, "week"+N+"_0", "F:\\opr\\");
 	}
 	/*
 	 * 将最关注的知识点id保存在文件
@@ -143,7 +151,7 @@ public class computeCS {
 			
 		}
 	
-		fop.writeFile(str, "1", "F:\\opr\\");
+		//fop.writeFile(str, "week"+N+"_1", "F:\\opr\\");
 		
 	}
 	
@@ -187,7 +195,7 @@ public class computeCS {
 		
 		jsonObj.put("x_cloud",lesUnitCont);
 		jsonObj.put("cloud_num", suport);
-		fop.writeFile(jsonObj.toString(), "result", "F:\\opr\\");
+		fop.writeFile(jsonObj.toString(), "week_"+N, "F:\\opr\\");
 	}
 	
 	

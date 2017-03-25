@@ -5,7 +5,15 @@ public class term {
 	private String termId;
 	private String courseId;
 	private String startTime;
+	private String duration;
 	private String endTime;
+	
+	public String getDuration() {
+		return duration;
+	}
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
 	public String getTermId() {
 		return termId;
 	}

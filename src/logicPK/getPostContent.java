@@ -43,10 +43,10 @@ public class getPostContent {
 				}
 				
 				String str=pstList.get(i).getTitle()+content;		
-				fop.writeFile(str, pstList.get(i).getPostId(), dir_Orig);
+				//fop.writeFile(str, pstList.get(i).getPostId(), dir_Orig);
 				//按词频格式分词
 				str=fc.wordFreqStat(str);
-				fop.writeFile(str, pstList.get(i).getPostId(), dir_Freq);
+				//fop.writeFile(str, pstList.get(i).getPostId(), dir_Freq);
 				//setpost_detail
 				pstList.get(i).setPost_detail(content);
 				//setpost_words
@@ -77,6 +77,7 @@ public class getPostContent {
 				String unitid=lesList.get(i).getLesson_unit_id();
 			//	if(unitid.equals("412038")){
 					//System.out.println("BIGBUG");
+				//先不输出
 					fop.writeFile(content,lesList.get(i).getLesson_unit_id() , dir_Orig);
 					content=fc.wordFreqStat(content);
 					fop.writeFile(content,lesList.get(i).getLesson_unit_id(), dir_Freq);

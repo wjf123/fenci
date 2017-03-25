@@ -10,9 +10,12 @@ import java.util.List;
 
 import entity.post;
 import entity.postDetail;
+import entity.term;
 
 public class readPostNoSQL {
 	final long OneWeek=604800000;
+	private int N;
+	
 	
 	/*
 	 * ，没有加入termid需求
@@ -54,7 +57,13 @@ public class readPostNoSQL {
 	}
 	*/
 	
-	/*
+	public int getN() {
+		return N;
+	}
+	public void setN(int n) {
+		N = n;
+	}
+/*
 	 * 整个学期，从数据文件中读取post内容，并筛选出本课程的帖子  
 	 */
 public List<post> getPostTerm(String courseId,String termId) throws FileNotFoundException, IOException{
@@ -106,6 +115,7 @@ public List<post> getPostTerm(String courseId,String termId) throws FileNotFound
 	 * 读取第n周的帖子
 	 */
 	public List<post> getPostWeek(String courseId,String termId,int n) throws Exception{
+		//setN(n);
 		//
 		List<post> postList=new ArrayList<>();
 		//得到post文件夹中所有的文件绝对路径
@@ -114,7 +124,10 @@ public List<post> getPostTerm(String courseId,String termId) throws FileNotFound
 		List<String> pathList=readf.readfile(FilePath);
 		//读取term的开始时间
 		readTerm readt=new readTerm();
-		String termStartTime=readt.getTerm(courseId, termId).getStartTime();
+		term t=new term();
+		t=readt.getTerm(courseId, termId);
+		
+		String termStartTime=t.getStartTime();
 		//String termEndTime=readt.getTerm(courseId, termId).getEndTime();
 		//遍历post文件夹中所有的文件，读取满足n周数要求的post
 		for(int i=0;i<pathList.size();i++){
