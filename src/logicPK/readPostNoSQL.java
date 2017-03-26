@@ -15,48 +15,7 @@ import entity.term;
 public class readPostNoSQL {
 	final long OneWeek=604800000;
 	private int N;
-	
-	
-	/*
-	 * ，没有加入termid需求
-	public List<post> getPost(String path){
-		
-		List<post> postList=new ArrayList<>();
-		try {
-			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(path),"UTF-8"));
-			String str="";
-			while((str=br.readLine())!=null){
-				post p=new post();
-				try{
-					String temp[]=str.split("");
-					
-					p.setPostId(temp[0]);
-					
-					p.setTitle(temp[10]);
-					
-					p.setLesson_unit_id(temp[4]);
-					p.setTerm_id(temp[7]);
-					p.setCout_browse(temp[19]);
-					p.setCount_reply(temp[20]);
-					p.setTag_lector(temp[18]);
-					postList.add(p);
-				}catch(ArrayIndexOutOfBoundsException e){
-					e.printStackTrace();
-					continue;
-				}
-			
-			}
-			
-		
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return postList;
-		
-	}
-	*/
-	
+
 	public int getN() {
 		return N;
 	}
