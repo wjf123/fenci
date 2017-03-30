@@ -13,6 +13,48 @@ public class FileOP {
 		return str;
 	}
 	
+	public void writeFileJson(String title,String name,String dir)
+	{
+		
+		String t=title;
+		if(t.length()>0)
+		{
+			//String path=dir+"_"+name+".txt";
+			String path=dir+"_"+name+".json";
+			File f=new File(dir);
+			if(!f.exists())
+			{
+				f.mkdirs();
+			}
+			
+			f=new File(path);
+			if(!f.exists())
+			{
+				try {
+					f.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			try {
+				FileOutputStream fs=new FileOutputStream(f);
+				OutputStreamWriter os=new OutputStreamWriter(fs,"UTF-8");
+				BufferedWriter bfw=new BufferedWriter(os);
+				bfw.write(t);
+				bfw.close();
+				System.out.println("succedd");
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
 	public void writeFile(String title,String name,String dir)
 	{
 		

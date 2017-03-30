@@ -160,7 +160,7 @@ public class computeCS {
 	 * 
 	 */
 	
-	public void getHotPointContent(){
+	public void getHotPointContent(String courseId,String termId){
 		JSONObject jsonObj = new JSONObject();//创建json格式的数据
 		
 		String str="";
@@ -178,10 +178,10 @@ public class computeCS {
 			}
 			
 			try {
-				lesUnitCont.add(fop.readFile("F:\\opr\\origPoint\\_"+lessonId));
+				lesUnitCont.add(fop.readFile("F:\\opr\\"+courseId+"_"+termId+"\\origPoint\\_"+lessonId));
 				suport.add(freqList.get(i).getValue());
 				 
-				str=str+fop.readFile("F:\\opr\\origPoint\\_"+lessonId)+":";
+				str=str+fop.readFile("F:\\opr\\"+courseId+"_"+termId+"\\origPoint\\_"+lessonId)+":";
 				str=str+freqList.get(i).getValue()+"\n";
 				//jsonObjArr.put(fop.readFile("F:\\opr\\origPoint\\_"+lessonId),freqList.get(i).getValue());
 				System.out.println(str);
@@ -195,7 +195,7 @@ public class computeCS {
 		
 		jsonObj.put("x_cloud",lesUnitCont);
 		jsonObj.put("cloud_num", suport);
-		fop.writeFile(jsonObj.toString(), "week_"+N, "F:\\opr\\");
+		fop.writeFileJson(jsonObj.toString(), "week_"+N, "F:\\opr\\"+courseId+"_"+termId+"\\result\\");
 	}
 	
 	

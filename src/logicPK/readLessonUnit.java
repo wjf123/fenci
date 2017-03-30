@@ -78,14 +78,10 @@ public class readLessonUnit {
 					temp=str.split("");
 					try{
 						j++;
-						if(j==124){
-							System.out.println("bug becomging!");
-						}
+						
 						int flag=0;//判断是否为小节、例题解答等,若是，则flag=1否则flag=0
 						//判断lessonunit是否为视频类型，即contenttype=1，并判断是否为指定学期
-						if(temp[0].equals("412038")){
-							System.out.println("readLeesonUnit:bug");
-						}
+						
 						if(Integer.parseInt(temp[8])==1&&temp[7].equals(termId)){
 							
 							//判断不是课程小结、例题详解、作业、等

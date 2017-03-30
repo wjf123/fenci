@@ -30,11 +30,11 @@ public class CosSimMain {
 		getPostContent getContent=new getPostContent();
 		//·Ö´Ê
 		lessonUnits=readLessonU.readLessonUnit(courseId, termId);
-		lessonUnits=getContent.getPoint(lessonUnits);
+		lessonUnits=getContent.getPoint(lessonUnits,courseId, termId);
 		for(int k=1;k<=Integer.parseInt(nowTerm.getDuration());k++){
 			posts=readpost.getPostWeek(courseId, termId,k);
 			postsDetail=readpost.getPostDetail(courseId, termId);
-			posts=getContent.getPost(posts, postsDetail);
+			posts=getContent.getPost(posts, postsDetail,courseId, termId);
 			//¼ÆËãCosSim
 			computeCS computer=new computeCS();
 			computer.setN(k);
@@ -46,7 +46,7 @@ public class CosSimMain {
 			for(int i=0;i<result.size();i++){
 				System.out.println(result.get(i).getKey()+":"+result.get(i).getValue());
 			}
-			computer.getHotPointContent();
+			computer.getHotPointContent(courseId, termId);
 			
 		}
 		
@@ -83,7 +83,14 @@ public class CosSimMain {
 		}
 		*/
 		CosSimMain csm=new CosSimMain();
-		csm.CosSim("46016","46002");
+		csm.CosSim("46006","47003");
+		//csm.CosSim("21011","21011");
+		//csm.CosSim("46016","46002");
+		//csm.CosSim("7001","7001");
+		//csm.CosSim("47024","252014");
+		//csm.CosSim("199001","417003");
+		
+		
 		
 	}
 }

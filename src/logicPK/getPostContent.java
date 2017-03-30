@@ -19,13 +19,13 @@ public class getPostContent {
 	 * 并分词，利用setPost_words()将post对象中的Post_words进行初始化，
 	 * 并返回List<post>
 	 */
-	public List<post> getPost(List<post> pstList,List<postDetail> pstDetailList){
+	public List<post> getPost(List<post> pstList,List<postDetail> pstDetailList,String courseId,String termId){
 		//List<post> pstList=new ArrayList<>();
 		
 		FileOP fop=new FileOP();
 		fenCi fc=new fenCi();
-		String dir_Orig="F:\\opr\\origPost\\";
-		String dir_Freq="F:\\opr\\freqPost\\";
+		String dir_Orig="F:\\opr\\"+courseId+"_"+termId+"\\origPost\\";
+		String dir_Freq="F:\\opr\\"+courseId+"_"+termId+"\\freqPost\\";
 		selectTag select=new selectTag();
 		try {
 			fc.innit();
@@ -43,10 +43,10 @@ public class getPostContent {
 				}
 				
 				String str=pstList.get(i).getTitle()+content;		
-				//fop.writeFile(str, pstList.get(i).getPostId(), dir_Orig);
+				fop.writeFile(str, pstList.get(i).getPostId(), dir_Orig);
 				//按词频格式分词
 				str=fc.wordFreqStat(str);
-				//fop.writeFile(str, pstList.get(i).getPostId(), dir_Freq);
+				fop.writeFile(str, pstList.get(i).getPostId(), dir_Freq);
 				//setpost_detail
 				pstList.get(i).setPost_detail(content);
 				//setpost_words
@@ -63,12 +63,12 @@ public class getPostContent {
 	 * 将知识点进行分词，初始化 List<lessonUnit>中的每个PointWords，并返回lIST
 	 */
 	
-	public List<lessonUnit> getPoint(List<lessonUnit> lesList){
+	public List<lessonUnit> getPoint(List<lessonUnit> lesList,String courseId,String termId){
 		
 		FileOP fop=new FileOP();
 		fenCi fc=new fenCi();
-		String dir_Orig="F:\\opr\\origPoint\\";
-		String dir_Freq="F:\\opr\\freqPoint\\";
+		String dir_Orig="F:\\opr\\"+courseId+"_"+termId+"\\origPoint\\";
+		String dir_Freq="F:\\opr\\"+courseId+"_"+termId+"\\freqPoint\\";
 		selectTag select=new selectTag();
 		try {
 			fc.innit();
