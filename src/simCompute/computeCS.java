@@ -20,7 +20,7 @@ import simCompute.cosSim;
 public class computeCS {
 	private Map<String,Map<String,Double>> simMap=new HashMap();
 	private List<Map.Entry<String, Integer>> freqList;
-	private int N;//为了输出带N周的标签
+	private int N=-1;//为了输出带N周的标签
 	
 	
 	

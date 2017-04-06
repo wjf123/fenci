@@ -17,7 +17,7 @@ import simCompute.computeCS;
 
 public class CosSimMain {
 	
-	public void CosSim(String courseId,String termId) throws Exception{
+	public void CosSimWeek(String courseId,String termId) throws Exception{
 		readPostNoSQL readpost=new readPostNoSQL();
 		readLessonUnit readLessonU=new readLessonUnit(); 
 		List<post> posts=new ArrayList<>();
@@ -51,6 +51,36 @@ public class CosSimMain {
 		}
 		
 	}
+	
+	public void CosSimTerm(String courseId,String termId) throws Exception{
+		readPostNoSQL readpost=new readPostNoSQL();
+		readLessonUnit readLessonU=new readLessonUnit(); 
+		List<post> posts=new ArrayList<>();
+		List<postDetail> postsDetail=new ArrayList<>();
+		List<lessonUnit> lessonUnits=new ArrayList<>();
+		
+		readTerm rdt=new readTerm();
+		term nowTerm=new term();
+		nowTerm=rdt.getTerm(courseId, termId);
+		getPostContent getContent=new getPostContent();
+		//∑÷¥ 
+		lessonUnits=readLessonU.readLessonUnit(courseId, termId);
+		lessonUnits=getContent.getPoint(lessonUnits,courseId, termId);
+		posts=readpost.getPostTerm(courseId, termId);
+		postsDetail=readpost.getPostDetail(courseId, termId);
+		posts=getContent.getPost(posts, postsDetail,courseId, termId);
+		//º∆À„CosSim
+		computeCS computer=new computeCS();
+		computer.compute(posts,lessonUnits);
+		computer.gethotLesUnitMap();
+		computer.writeSimToFile();
+		computer.writeHotPointToFile();
+		List<Map.Entry<String, Integer>> result=computer.getFreqList();
+		for(int i=0;i<result.size();i++){
+			System.out.println(result.get(i).getKey()+":"+result.get(i).getValue());
+		}
+		computer.getHotPointContent(courseId, termId);
+	}
 
 	public static void main(String args[]) throws Exception{
 		/*
@@ -83,12 +113,12 @@ public class CosSimMain {
 		}
 		*/
 		CosSimMain csm=new CosSimMain();
-		csm.CosSim("46006","47003");
-		//csm.CosSim("21011","21011");
-		//csm.CosSim("46016","46002");
-		//csm.CosSim("7001","7001");
-		//csm.CosSim("47024","252014");
-		//csm.CosSim("199001","417003");
+		csm.CosSimWeek("46006","47003");
+		//csm.CosSimTerm("21011","21011");
+		//csm.CosSimTerm("46016","46002");
+		//csm.CosSimTerm("7001","7001");
+		//csm.CosSimTerm("47024","252014");
+		//csm.CosSimTerm("199001","417003");
 		
 		
 		
