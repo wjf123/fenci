@@ -15,7 +15,7 @@ public class fenCi {
 
 		// 定义并初始化接口的静态变量
 		CLibrary Instance = (CLibrary) Native.loadLibrary(
-				"D:\\Download\\study\\ICTCLAS2016\\new\\lib\\win64\\NLPIR", CLibrary.class);
+				"NLPIR", CLibrary.class);
 		
 
 		// printf函数声明
@@ -48,7 +48,7 @@ public class fenCi {
 
 	public void innit() throws Exception
 	{
-		String dic="E:\\eclipse\\fenci";
+		String dic="";
 		
 		String system_charset = "utf-8";
 		int charset_type = 1;
@@ -86,8 +86,8 @@ public class fenCi {
 	}
 	
 	public int importUserDic(){
-		String userDicPath="E:\\eclipse\\fenci\\Data\\test.txt";
-		byte[] bt=userDicPath.getBytes();
+		String userDicPath="\\Data\\test.txt";
+		//byte[] bt=userDicPath.getBytes();
 		int dict=CLibrary.Instance.NLPIR_ImportUserDict(userDicPath.getBytes(),true);
 		return dict;
 	}

@@ -14,7 +14,7 @@ import entity.term;
 public class readTerm {
 	List<term> termList=new ArrayList<>();
 	public void readterm(String courseId) throws FileNotFoundException, IOException{
-		String FilePath="F:\\在线学习\\数据1\\"+courseId+"\\moc_term";
+		String FilePath="courseData\\"+courseId+"\\moc_term";
 		ReadFile readf=new ReadFile();
 		List<String> pathList=readf.readfile(FilePath);
 		for(int i=0;i<pathList.size();i++){
@@ -50,6 +50,7 @@ public class readTerm {
 	
 	public term getTerm(String courseId,String termId) throws FileNotFoundException, IOException{
 		readterm(courseId);
+		@SuppressWarnings("unused")
 		String str="";
 		term t=new term();
 		for(int i=0;i<termList.size();i++){

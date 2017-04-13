@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +13,22 @@ import entity.lessonUnit;
 
 public class readLessonUnit {
 	
-	List<String> filterSimple=new ArrayList<String>(){{add("小结");add("例题");add("小节");add("问题求解");}};
+	List<String> filterSimple=new ArrayList<String>(){/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+	{add("小结");add("例题");add("小节");add("问题求解");}};
 	
 	//在lessonUnit的列表中初始化前几个为与作业、平台、资料等相关的内容，以筛选出与知识点无关的帖子。
 	public List<lessonUnit> init(String termId) throws FileNotFoundException, IOException{
 		List<lessonUnit> listLesson=new ArrayList<lessonUnit>();
-		String FilePath="F:\\opr\\other";
+		String FilePath="courseData\\other";
 		ReadFile readf=new ReadFile();
 		List<String> pathList=readf.readfile(FilePath);
 		for(int i=0;i<pathList.size();i++){
 			lessonUnit lesU=new lessonUnit();
+			@SuppressWarnings("resource")
 			BufferedReader brf=new BufferedReader(new InputStreamReader(new FileInputStream(pathList.get(i)), "UTF-8"));
 			String strtemp="";
 			String str="";
@@ -57,9 +62,9 @@ public class readLessonUnit {
 		return flag;
 	}
 	
-	public List<lessonUnit> readLessonUnit(String courseId,String termId) throws FileNotFoundException, IOException{
+	public List<lessonUnit> getLessonUnit(String courseId,String termId) throws FileNotFoundException, IOException{
 		
-		String FilePath="F:\\在线学习\\数据1\\"+courseId+"\\moc_lesson_unit";
+		String FilePath="courseData\\"+courseId+"\\moc_lesson_unit";
 		ReadFile readf=new ReadFile();
 		List<String> pathList=readf.readfile(FilePath);
 		
@@ -69,6 +74,7 @@ public class readLessonUnit {
 		
 		for(int i=0;i<pathList.size();i++){
 			try {
+				@SuppressWarnings("resource")
 				BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(pathList.get(i)),"UTF-8"));
 				String str="";
 				int j=0;
@@ -117,9 +123,11 @@ public class readLessonUnit {
 	}
 	
 	//读课时表。。目前没用到。。。。
+
 	public List<lesson> readLesson(String path){
 		List<lesson> lessonList=new ArrayList<>();
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(path),"UTF-8"));
 			String str;
 			String temp[]=new String[10];
@@ -143,7 +151,7 @@ public class readLessonUnit {
 	public static void main(String args[]) throws FileNotFoundException, IOException{
 		readLessonUnit rdl=new readLessonUnit();
 		//rdl.readLessonUnit("F:\\在线学习\\数据1\\46016\\moc_lesson_unit\\000000_0");
-		rdl.readLessonUnit("46016", "46002");
+		rdl.getLessonUnit("46016", "46002");
 		//rdl.readLesson("F:\\在线学习\\数据1\\46016\\moc_lesson\\000000_0");
 	}
 

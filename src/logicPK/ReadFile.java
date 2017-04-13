@@ -86,7 +86,7 @@ public class ReadFile {
         public static void main(String[] args) {
         	ReadFile rf=new ReadFile();
                 try {
-                        rf.readfile("F:\\opr\\other\\");
+                        rf.readfile("courseData\\other\\");
                         // deletefile("D:/file");
                 } catch (FileNotFoundException ex) {
                 } catch (IOException ex) {

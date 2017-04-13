@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import entity.lessonUnit;
@@ -18,7 +17,7 @@ import simCompute.cosSim;
 
 
 public class computeCS {
-	private Map<String,Map<String,Double>> simMap=new HashMap();
+	private Map<String,Map<String,Double>> simMap=new HashMap<>();
 	private List<Map.Entry<String, Integer>> freqList;
 	private int N=-1;//为了输出带N周的标签
 	
@@ -49,7 +48,7 @@ public class computeCS {
 		for(int i=0;i<postList.size();i++){
 			
 			//用来保存map<maxSim_lesson_unit_id,maxsim>
-			Map<String,Double> lesSimMap=new HashMap();
+			Map<String,Double> lesSimMap=new HashMap<>();
 		
 			post p=postList.get(i);
 			String post_id=p.getPostId();
@@ -71,7 +70,7 @@ public class computeCS {
 
 					postContent lesC=lesU.getPointWords();
 					cosSim cosS=new cosSim();
-					System.out.println("ssssssssssssssssssssssssssssssssssssss"+lesU.getLesson_unit_id());
+					//System.out.println("ssssssssssssssssssssssssssssssssssssss"+lesU.getLesson_unit_id());
 					cosS.weightMix(lesC, postC);//初始化词频矩阵
 					double sim=cosS.computeCosSim();//计算相似度
 					//与最大的相似度比较，选出最大相似度与其知识点id
@@ -94,7 +93,7 @@ public class computeCS {
 	 * 未虑回帖人数、教师是否参与等
 	 */
 	public void  gethotLesUnitMap(){
-		Map<String,Integer> freqMapstatic=new HashMap();//Map<lesson-unit-id,相关帖子数>
+		Map<String,Integer> freqMapstatic=new HashMap<>();//Map<lesson-unit-id,相关帖子数>
 		
 		//int count=0;
 		for(Map<String,Double> entry:simMap.values()){
@@ -134,7 +133,7 @@ public class computeCS {
 			}
 		}
 		
-		FileOP fop=new FileOP();
+		//FileOP fop=new FileOP();
 		//fop.writeFile(str, "week"+N+"_0", "F:\\opr\\");
 	}
 	/*
@@ -142,7 +141,7 @@ public class computeCS {
 	 */
 	public void writeHotPointToFile(){
 		String str="";
-		FileOP fop=new FileOP();
+		//FileOP fop=new FileOP();
 	
 		for(int i=0;i<freqList.size()&&i<5;i++){
 			//str=str+"lessonUnitId: "+freqList.get(i).getKey()+"  suport:"+freqList.get(i).getValue()+"\n";
@@ -163,13 +162,13 @@ public class computeCS {
 	public void getHotPointContent(String courseId,String termId){
 		JSONObject jsonObj = new JSONObject();//创建json格式的数据
 		
-		String str="";
+		//String str="";
 		FileOP fop=new FileOP();
 		int j=0;//除了作业等，第几个最关注的知识点
-		List<String> lesUnitCont=new ArrayList();
-		List<Integer> suport=new ArrayList();
+		List<String> lesUnitCont=new ArrayList<>();
+		List<Integer> suport=new ArrayList<>();
 		//int suport[];
-		for(int i=0;i<freqList.size()&&j<5;i++){
+		for(int i=0;i<freqList.size()&&j<10;i++){
 			
 			String lessonId=freqList.get(i).getKey();
 			//出去作业、课程以及交流
@@ -178,13 +177,15 @@ public class computeCS {
 			}
 			
 			try {
-				lesUnitCont.add(fop.readFile("F:\\opr\\"+courseId+"_"+termId+"\\origPoint\\_"+lessonId));
+				String lesUnitcontent=fop.readFile("\\opr\\"+courseId+"_"+termId+"\\origPoint\\_"+lessonId);
+				
+				lesUnitCont.add(filter(lesUnitcontent));
 				suport.add(freqList.get(i).getValue());
 				 
-				str=str+fop.readFile("F:\\opr\\"+courseId+"_"+termId+"\\origPoint\\_"+lessonId)+":";
-				str=str+freqList.get(i).getValue()+"\n";
+				//str=str+filter(lesUnitcontent)+":";
+				//str=str+freqList.get(i).getValue()+"\n";
 				//jsonObjArr.put(fop.readFile("F:\\opr\\origPoint\\_"+lessonId),freqList.get(i).getValue());
-				System.out.println(str);
+				//System.out.println(str);
 				j++;
 				
 			} catch (Exception e) {
@@ -195,8 +196,48 @@ public class computeCS {
 		
 		jsonObj.put("x_cloud",lesUnitCont);
 		jsonObj.put("cloud_num", suport);
-		fop.writeFileJson(jsonObj.toString(), "week_"+N, "F:\\opr\\"+courseId+"_"+termId+"\\result\\");
+		fop.writeFileJson(jsonObj.toString(), "week_"+N, "\\opr\\"+courseId+"_"+termId+"\\result\\");
 	}
+	
+	/*
+	 * 将知识点中的“第几章/节/单元or2-3/2.3”等章节标志去掉
+	 */
+	
+	public String filter(String str2){
+		String substr="";
+		int i,hanzi=0;
+		
+		for(i=0;i<str2.length();i++){
+			substr+=str2.charAt(i);
+			//([0-9]*[-|_|——|\\.]*)*
+			if(str2.startsWith("第")){
+				hanzi=1;
+			}
+			//第(（0-9）*|[一|二|三|十]*)[单元|章|讲|节]
+			if(substr.matches("第([0-9]*|[一|二|三|十]*)(章|讲|节|(单元))")){
+				i++;
+				break;
+			}else {
+		
+				if(substr.matches("([0-9]+?[-|_|——|\\.]*)*(章|讲|节|\\s)*")){
+					
+					continue;
+				}else{
+					if(hanzi==1){
+						continue;
+					}else{
+						break;
+					}
+				}
+			}
+			
+		}
+		if(i==0)
+			return str2;
+		else
+			return str2.substring(i);
+		
+	} 
 	
 	
 }

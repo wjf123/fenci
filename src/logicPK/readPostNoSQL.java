@@ -28,11 +28,12 @@ public class readPostNoSQL {
 public List<post> getPostTerm(String courseId,String termId) throws FileNotFoundException, IOException{
 	List<post> postList=new ArrayList<>();
 	//得到post文件夹中所有的文件绝对路径
-	String FilePath="F:\\在线学习\\数据1\\"+courseId+"\\moc_post";
+	String FilePath="courseData\\"+courseId+"\\moc_post";
 	ReadFile readf=new ReadFile();
 	List<String> pathList=readf.readfile(FilePath);
 	for(int i=0;i<pathList.size();i++){
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(pathList.get(i)),"UTF-8"));
 			String str="";
 			while((str=br.readLine())!=null){
@@ -78,7 +79,7 @@ public List<post> getPostTerm(String courseId,String termId) throws FileNotFound
 		//
 		List<post> postList=new ArrayList<>();
 		//得到post文件夹中所有的文件绝对路径
-		String FilePath="F:\\在线学习\\数据1\\"+courseId+"\\moc_post";
+		String FilePath="courseData\\"+courseId+"\\moc_post";
 		ReadFile readf=new ReadFile();
 		List<String> pathList=readf.readfile(FilePath);
 		//读取term的开始时间
@@ -91,6 +92,7 @@ public List<post> getPostTerm(String courseId,String termId) throws FileNotFound
 		//遍历post文件夹中所有的文件，读取满足n周数要求的post
 		for(int i=0;i<pathList.size();i++){
 			try {
+				@SuppressWarnings("resource")
 				BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(pathList.get(i)),"UTF-8"));
 				String str="";
 				while((str=br.readLine())!=null){
@@ -142,11 +144,12 @@ public List<post> getPostTerm(String courseId,String termId) throws FileNotFound
 
 	public List<postDetail> getPostDetail(String courseId,String termId) throws FileNotFoundException, IOException{
 		List<postDetail> postDetailList=new ArrayList<>();
-		String FilePath="F:\\在线学习\\数据1\\"+courseId+"\\moc_post_detail";
+		String FilePath="courseData\\"+courseId+"\\moc_post_detail";
 		ReadFile rdf=new ReadFile();
 		List<String> pathList=rdf.readfile(FilePath);
 		for(int i=0;i<pathList.size();i++){
 			try {
+				@SuppressWarnings("resource")
 				BufferedReader brf=new BufferedReader(new InputStreamReader(new FileInputStream(pathList.get(i)), "UTF-8"));
 				String str="";
 				

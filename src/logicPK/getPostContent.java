@@ -1,6 +1,5 @@
 package logicPK;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import entity.lessonUnit;
@@ -24,8 +23,8 @@ public class getPostContent {
 		
 		FileOP fop=new FileOP();
 		fenCi fc=new fenCi();
-		String dir_Orig="F:\\opr\\"+courseId+"_"+termId+"\\origPost\\";
-		String dir_Freq="F:\\opr\\"+courseId+"_"+termId+"\\freqPost\\";
+		String dir_Orig="\\opr\\"+courseId+"_"+termId+"\\origPost\\";
+		String dir_Freq="\\opr\\"+courseId+"_"+termId+"\\freqPost\\";
 		selectTag select=new selectTag();
 		try {
 			fc.innit();
@@ -67,14 +66,14 @@ public class getPostContent {
 		
 		FileOP fop=new FileOP();
 		fenCi fc=new fenCi();
-		String dir_Orig="F:\\opr\\"+courseId+"_"+termId+"\\origPoint\\";
-		String dir_Freq="F:\\opr\\"+courseId+"_"+termId+"\\freqPoint\\";
+		String dir_Orig="\\opr\\"+courseId+"_"+termId+"\\origPoint\\";
+		String dir_Freq="\\opr\\"+courseId+"_"+termId+"\\freqPoint\\";
 		selectTag select=new selectTag();
 		try {
 			fc.innit();
 			for(int i=0;i<lesList.size();i++){
 				String content=lesList.get(i).getName();
-				String unitid=lesList.get(i).getLesson_unit_id();
+				//String unitid=lesList.get(i).getLesson_unit_id();
 			//	if(unitid.equals("412038")){
 					//System.out.println("BIGBUG");
 				//ÏÈ²»Êä³ö
